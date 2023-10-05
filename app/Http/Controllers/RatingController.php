@@ -26,4 +26,9 @@ class RatingController extends Controller
     {
         return view('ratings.create');
     }
+
+    public function map(): View
+    {
+        return view('livewire.map');
+    }
 }

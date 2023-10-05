@@ -1,56 +1,24 @@
-<div class="min-h-screen relative lg:grid lg:grid-cols-[auto,auto,60vw]">
-    {{-- Map --}}
-    <div id="map" class="h-[70vh] lg:col-start-3 lg:h-screen lg:w-[60vw]"></div>
+<script>
+    let markers = null;
+    function fetchPosts() {
+        return fetch('/api/ratings').then(x => {
+            x.json().then(y => {
+                markers = y.data;
+                console.log(markers);
+            });
+        });
+    }
+</script>
 
+<div
+    x-data="{ posts: [], locationDetails: [] }"
+    x-init="(() => { fetchPosts().then(data => { posts = data }) })()"
+    class="min-h-screen relative"
+>
+    <x-mapbox class="h-[70vh]" :markers="[this.posts]"  :options="['zoom' => 11, 'style' => 'mapbox://styles/mapbox/light-v11', 'center' => [4.895168, 52.370216]]" />
 
-    {{-- Search + list --}}
-    <aside class="fixed z-50 bottom-8 w-full rounded-2xl border p-8 pb-32 bg-white shadow-md lg:relative lg:bottom-[initial] lg:col-start-2 lg:row-start-1 lg:border-0 lg:rounded-none lg:shadow-xl  lg:border-l lg:border-r ">
-        <form id="search-form">
-            <div class="relative flex gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 absolute left-2 top-1/2 -translate-y-1/2 stroke-slate-600 stroke-2 stroke-">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                  </svg>
-                  
-                <input class="rounded w-full pl-12 border-slate-500" id="search-input" placeholder="Search...">
-                <button class="w-32 h-auto bg-stone-900 text-white rounded" type="submit">Search</button>
-            </div>
-
-        </form>
-
-        <div id="results">
-            <!-- Results will be displayed here -->
-            <ul class="mt-24">
-                <template x-for="item in filteredItems" :key="item">
-                    <li>
-                        <div class="flex gap-2 items-center">
-                            <h2 class="font-bold text-2xl">[Mollie]</h2>
-                            <span class="bg-slate-300 px-6 py-2 rounded">GreenBadge</span>
-                        </div>
-
-                        <div>
-                           
-                        </div>
-
-                        <ul x-data="{ numbers: [1, 2, 3, 4, 5] }" class="flex mt-8">
-                            <template x-for="number in numbers">
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                </li>
-                            </template>
-                        </ul>
-                              
-
-                        <div class="mt-4">
-                            <p>Keizersgracht 126, 1012 AA</p>
-                            <p>Amsterdam, The Netherlands</p>
-                        </div>
-                    </li>
-
-                </template>
-            </ul>
-        </div>
+    <aside class="fixed z-50 bottom-0 w-full rounded-xl border p-8 pb-32 bg-white shadow-md">
+        <p>Hello World</p>
     </aside>
 
     {{-- Menu --}}
