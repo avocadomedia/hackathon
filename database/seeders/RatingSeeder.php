@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Rating;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class RatingSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call(RatingSeeder::class);
+        Rating::factory(10)->create();
     }
 }
