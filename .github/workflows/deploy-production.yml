@@ -1,0 +1,70 @@
+name: CI-production
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: composer_memory_limit=-1 composer install --prefer-dist --no-ansi --no-interaction --no-progress --ignore-platform-req=php
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          vendor/
+          bootstrap/
+        key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+    - name: Install npm dependencies
+      run: npm install && npm run build
+    - name: Copy env
+      run: cp .env.example .env
+    - name: Generate key
+      run: php artisan key:generate
+    - name: Run tests
+      run: php artisan test
+
+  production:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - name: Install npm dependencies
+      run: npm install && npm run build
+    - name: Set up SSH directory
+      shell: bash
+      run: mkdir -p ~/.ssh
+    - name: Set private key
+      run:
+        echo "${{secrets.PRODUCTION_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+    - name: Set algorithm
+      run: |
+        echo $'PubkeyAcceptedAlgorithms +ssh-rsa\nStrictHostKeyChecking=no' > ~/.ssh/config
+    - name: Set up algorithm
+      run:
+        chmod 600 ~/.ssh/config
+    - name: Set up SSH key
+      run:
+        chmod 600 ~/.ssh/id_rsa
+    - name: Add private key
+      shell: bash
+      run: |
+        eval `ssh-agent -s`
+        ssh-add ~/.ssh/id_rsa
+        ssh-add -l
+    - name: Install Deployer
+      shell: bash
+      run: |
+        curl -LO https://github.com/deployphp/deployer/releases/download/v7.0.0-rc.8/deployer.phar
+        mv deployer.phar /usr/local/bin/dep
+        chmod +x /usr/local/bin/dep
+    - name: Deploy to production
+      run: dep deploy production --tag=${{ github.sha }} -vvv
