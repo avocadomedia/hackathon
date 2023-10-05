@@ -41,7 +41,7 @@
                     <input type="hidden" name="name" id="hiddenName" />
                 </fieldset>
 
-                <div class="flex gap-4 w-fit">
+                <div class="grid grid-cols-2 gap-4">
                     <fieldset class='flex flex-col gap-2 w-auto'>
                         <label class="font-bold text-xl" for='address'>Adres</label>
                     
