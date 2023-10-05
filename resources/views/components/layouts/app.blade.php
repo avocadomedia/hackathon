@@ -16,7 +16,6 @@
             [x-cloak] {
                 display: none !important;
             }
-            </style>
         </style>
 
         @bukStyles

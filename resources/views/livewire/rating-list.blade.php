@@ -1,28 +1,54 @@
-<div>
-    <x-mapbox class="h-[70vh]" :markers="[[13.4105300, 52.5243700], [4.895168, 52.370216]]"  :options="['zoom' => 11, 'style' => 'mapbox://styles/mapbox/light-v11', 'center' => [4.895168, 52.370216]]" />   
+
+  
+  <section class="min-h-screen relative">
+
+    <div x-data="{ result: null }">
+        <button @click="fetchData()">Fetch Data</button>
+        <div x-text="result"></div>
+        <script>
+          function fetchData() {
+            fetch('/api/ratings')
+              .then(response => response.json())
+              .then(data => {
+                // this.result = JSON.stringify(data);
+                console.log(data)
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
+          }
+        </script>
+        </div>
+        <x-mapbox class="h-[70vh]" :markers="[[13.4105300, 52.5243700], [4.895168, 52.370216]]"  :options="['zoom' => 11, 'style' => 'mapbox://styles/mapbox/light-v11', 'center' => [4.895168, 52.370216]]" />   
     
-    <div
-    x-data="{
-        search: '',
 
-        items: ['foo', 'bar', 'baz'],
+        <aside class="fixed bottom-0 w-full">
+            <p>Hello World</p>
 
-        get filteredItems() {
-            return this.items.filter(
-                i => i.startsWith(this.search)
-            )
-        }
-    }"
->
-    <input x-model="search" placeholder="Search...">
+            <div
+            x-data="{
+                search: '',
+                items: ['foo', 'bar', 'baz'],
 
-    <ul>
-        <template x-for="item in filteredItems" :key="item">
-            <li x-text="item"></li>
-        </template>
-    </ul>
+                get filteredItems() {
+                    return this.items.filter(
+                        i => i.startsWith(this.search)
+                    )
+                }
+            }"
+        >
+            <input x-model="search" placeholder="Search...">
 
-    {{-- 
+            <ul>
+                <template x-for="item in filteredItems" :key="item">
+                    <li x-text="item"></li>
+                </template>
+            </ul>
+        </div>
+    </aside>
+</section>
+
+{{-- 
 
 
 </div>
@@ -40,4 +66,3 @@
         </li>
     @endforeach
 </ul> --}}
-</div>
