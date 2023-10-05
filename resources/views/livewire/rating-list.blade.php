@@ -24,6 +24,10 @@
 
     {{-- Menu --}}
     <aside class="fixed bg-white border-t lg:relative lg:border-none shadow-lg bottom-0 z-[51] flex justify-center w-full py-2 lg:flex-col lg:items-center lg:justify-center lg:col-start-1 lg:row-start-1 px-3">
+        <div class="w-10 top-1/2 lg:top-10 lg:w-14 lg:h-14 lg:left-3 -translate-y-1/2 h-10 overflow-hidden absolute left-4">
+            <img src='https://github.com/avocadomedia/hackathon/assets/48051912/b8a321b6-b2a5-4e4e-a350-ce10f61f23da' alt='logo' />
+        </div>
+        
         <nav class="flex justify-center lg:flex-col gap-4 items-center">
             <li class="border w-fit rounded-xl list-none hover:bg-slate-200 ease duration-150 hover:cursor-pointer">
                 <a href='/' class="block p-3 lg:p-4">
