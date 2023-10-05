@@ -9,12 +9,19 @@
 
         <title>{{ config('app.name') }}</title>
 
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+
+
         <style>
             [x-cloak] {
                 display: none !important;
             }
+            </style>
         </style>
 
+        @bukStyles
+        @bukScripts
         @filamentStyles
         @vite('resources/css/app.css')
     </head>
