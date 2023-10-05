@@ -64,7 +64,6 @@
     async function fetchPosts() {
         const response = await fetch('/api/ratings'); // replace with your actual API URL
         const data = await response.json();
-        console.log(data.data)
         return data.data;
     }
 
@@ -73,7 +72,6 @@
         for (const item of data) {
             const coords = [parseFloat(item.pin.longitude), parseFloat(item.pin.latitude)];
             
-            console.log(item)
             new mapboxgl.Marker()
                 .setLngLat(coords)
                 .addTo(map)
@@ -81,6 +79,7 @@
                     new mapboxgl.Popup({ offset: 25 }).setHTML(`
                         <div class='p-1 rounded-xl'>
                             <h3 class='font-bold'>${item.name}</h3>
+                            <p>Rating: ${item.score} / 5</p>
                             <p>${item.address}</p>
                         </div>
                     `)
@@ -120,9 +119,6 @@
 
 
 
-    resultItem.addEventListener('click', function(e) {
-        console.log('hi?')
-    })
 
 
     function displayResults(data) {
@@ -198,16 +194,4 @@
         }
     }
 
-    map.on('click', 'popup', (e) => {
-                console.log(e)
-        // const clickedLocation = e.features[0].geometry.coordinates; // Get the coordinates
-        // const clickedTitle = e.features[0].properties.title; // Get the title
-        // const clickedDescription = e.features[0].properties.description; // Get the description
-
-        //     // You can do something with the location information here, e.g., display it in a popup
-        //     new mapboxgl.Popup()
-        //         .setLngLat(clickedLocation)
-        //         .setHTML(`<h3>${clickedTitle}</h3><p>${clickedDescription}</p>`)
-        //         .addTo(map);
-    });
 </script>
