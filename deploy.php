@@ -13,7 +13,7 @@ add('shared_dirs', []);
 
 desc('Composer install');
 task('composer:install', function () {
-    run('cd {{ release_path }}; composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts;');
+    run('cd {{ release_path }}; composer install --ignore-platform-reqs --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts;');
 });
 
 // Tasks
