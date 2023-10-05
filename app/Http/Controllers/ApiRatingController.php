@@ -23,6 +23,7 @@ class ApiRatingController extends BaseController
         $rating->pdok_id = $request->pdokId;
         $rating->pdok_latitude = 0;
         $rating->pdok_longitude = 0;
+        $rating->comment = $request->comment;
         $rating->save();
         return $rating;
     }
