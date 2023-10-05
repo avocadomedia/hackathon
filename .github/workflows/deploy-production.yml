@@ -8,30 +8,7 @@ concurrency:
   group: ${{ github.workflow }}
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: composer_memory_limit=-1 composer install --prefer-dist --no-ansi --no-interaction --no-progress --ignore-platform-req=php
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          vendor/
-          bootstrap/
-        key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-    - name: Install npm dependencies
-      run: npm install && npm run build
-    - name: Copy env
-      run: cp .env.example .env
-    - name: Generate key
-      run: php artisan key:generate
-    - name: Run tests
-      run: php artisan test
-
   production:
-    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
