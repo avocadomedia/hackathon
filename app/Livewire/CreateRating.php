@@ -27,10 +27,10 @@ class CreateRating extends Component implements HasForms
                 ->hidden()
                 ->required(),
             TextInput::make('address')
-                ->id('address')
+                    ->id('address')
                 ->label('Street & house number')
                 ->required()
-                ->numeric(),
+                ->numeric()->hidden(),
             TextInput::make('zip')
                 ->id('postcode')
                 ->label('Postal code')

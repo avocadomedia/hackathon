@@ -3,7 +3,7 @@
 
 <head>
     <title>Place Autocomplete Address Form</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
 
     <style id="compiled-css" type="text/css">
@@ -114,39 +114,28 @@
 
 <body>
     <form id="address-form" action="" method="get" autocomplete="off">
-        <p class="title">Sample address form for North America</p>
-        <p class="note"><em>* = required field</em></p>
+
         <label class="full-field">
-            <span class="form-label">Deliver to*</span>
+            <span class="form-label">Plaats</span>
+            <label style="color:#333;" id="placeNameDisplay" />
+        </label>
+        <br />
+        <br />
+
+        <label class="full-field">
+            <span class="form-label">Adres</span>
             <input id="ship-address" name="ship-address" required autocomplete="off" />
         </label>
-        <label class="full-field">
-            <span class="form-label">Apartment, unit, suite, or floor #</span>
-            <input id="address2" name="address2" />
-        </label>
-        <label class="full-field">
-            <span class="form-label">City*</span>
-            <input id="locality" name="locality" required />
-        </label>
-        <label class="slim-field-left">
-            <span class="form-label">State/Province*</span>
-            <input id="state" name="state" required />
-        </label>
+
         <label class="slim-field-right" for="postal_code">
             <span class="form-label">Postal code*</span>
             <input id="postcode" name="postcode" required />
         </label>
-        <label class="full-field">
-            <span class="form-label">Country/Region*</span>
-            <input id="country" name="country" required />
-        </label>
+
         <button type="button" class="my-button">Save address</button>
 
         <input type="reset" value="Clear form" />
     </form>
-    <img class="powered-by-google"
-        src="https://storage.googleapis.com/geo-devrel-public-buckets/powered_by_google_on_white.png"
-        alt="Powered by Google" />
 
     <script>
         let autocomplete;
@@ -171,7 +160,13 @@
 
         function fillInAddress() {
             const place = autocomplete.getPlace();
-            console.log(place);
+            const lat = place.geometry.location.lat();
+            const lng = place.geometry.location.lng();
+
+
+            const placeName = place.name;
+            document.getElementById("placeNameDisplay").innerText = placeName;
+
             let address1 = "";
             let postcode = "";
 
@@ -180,6 +175,7 @@
 
                 switch (componentType) {
                     case "street_number": {
+
                         address1 = `${component.long_name} ${address1}`;
                         break;
                     }
@@ -198,16 +194,6 @@
                         postcode = `${postcode}-${component.long_name}`;
                         break;
                     }
-                    case "locality":
-                        document.querySelector("#locality").value = component.long_name;
-                        break;
-                    case "administrative_area_level_1": {
-                        document.querySelector("#state").value = component.short_name;
-                        break;
-                    }
-                    case "country":
-                        document.querySelector("#country").value = component.long_name;
-                        break;
                 }
             }
 
@@ -222,5 +208,4 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFIRKxfoGWp8fdtj6KYN7ZlpcuAIEmqiQ&callback=initAutocomplete&libraries=places">
     </script>
 </body>
-
 </html>
