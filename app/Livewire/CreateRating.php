@@ -19,6 +19,20 @@ class CreateRating extends Component implements HasForms
 
     public bool $success = false;
 
+    public static function getRatingFormFields(): array
+    {
+        return [
+            TextInput::make('pdok_id')
+                ->label('PDOK ID')
+                ->required(),
+            TextInput::make('score')
+                ->required()
+                ->numeric(),
+            Textarea::make('comment')
+                ->required(),
+        ];
+    }
+
     public function mount(): void
     {
         $this->form->fill();
@@ -27,15 +41,7 @@ class CreateRating extends Component implements HasForms
     public function form(Form $form): Form
     {
         return $form
-            ->schema([
-                TextInput::make('pdok_id')
-                    ->required(),
-                TextInput::make('score')
-                    ->required()
-                    ->numeric(),
-                Textarea::make('comment')
-                    ->required(),
-            ])
+            ->schema(self::getRatingFormFields())
             ->statePath('data');
     }
 
