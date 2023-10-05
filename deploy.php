@@ -39,7 +39,7 @@ set('repository', 'git@github.com:avocadomedia/hackathon.git');
 
 // Hosts
 host('production')
-    ->set('hostname', '164.90.195.133')
+    ->set('hostname', '134.209.81.241')
     ->set('ssh_arguments', ['-o PubkeyAcceptedAlgorithms=+ssh-rsa', '-o StrictHostKeyChecking=no', '-o KexAlgorithms=+diffie-hellman-group1-sha1', '-o PubkeyAcceptedKeyTypes=rsa-sha2-256', '-o HostkeyAlgorithms=+ssh-dss'])
     ->set('identity_file', '~/.ssh/id_rsa')
     ->set('labels', ['stage' => 'production'])
