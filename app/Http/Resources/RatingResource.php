@@ -11,6 +11,8 @@ class RatingResource extends JsonResource
     {
         return [
             'pdok_id' => $this->pdok_id,
+            'pdok_latitude' => $this->pdok_latitude,
+            'pdok_longitude' => $this->pdok_longitude,
             'score' => $this->score,
             'comment' => $this->comment,
         ];
