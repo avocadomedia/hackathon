@@ -23,7 +23,7 @@ class StoreRatingRequest extends FormRequest
     {
         return [
             'score' => 'required|integer|between:1,5',
-            'pdokId' => 'required|string',
+            'name' => 'required|string',
             'comment' => 'string|nullable',
         ];
     }

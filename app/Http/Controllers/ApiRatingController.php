@@ -15,15 +15,17 @@ class ApiRatingController extends BaseController
 
     public function index(Request $request)
     {
-        return Rating::where('pdok_id', $request->pdokId)->get();
+        return Rating::where('name', $request->name)->get();
     }
 
     public function store(Rating $rating, StoreRatingRequest $request)
     {
         $rating->score = $request->score;
-        $rating->pdok_id = $request->pdokId;
-        $rating->pdok_latitude = 0;
-        $rating->pdok_longitude = 0;
+        $rating->name = $request->name;
+        $rating->latitude = 0;
+        $rating->longitude = 0;
+        $rating->address = 'keizersgracht 126';
+        $rating->zip = '2020XX';
         $rating->comment = $request->comment;
         $rating->save();
 

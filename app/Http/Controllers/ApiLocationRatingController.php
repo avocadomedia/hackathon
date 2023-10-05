@@ -20,17 +20,17 @@ class ApiLocationRatingController extends BaseController
         $this->badgeService = $badgeService;
     }
 
-    public function show(string $pdokId)
+    public function show(string $name)
     {
-        $ratings = Rating::where('pdok_id', $pdokId)->get();
+        $ratings = Rating::where('name', $name)->get();
         return [
-            'pdokId' => $pdokId,
+            'name' => $name,
             'numberOfRatings' => $ratings->count(),
             'averageScore' => $ratings->avg('score'),
             'comments' => $ratings->filter(function ($rating) {
                 return $rating->comment;
-            })->pluck('comment')->toArray(),
-            'badges' => $this->badgeService->getBadges($pdokId)
+            })->unique('comment')->pluck('comment')->toArray(),
+            'badges' => $this->badgeService->getBadges($name)
         ];
     }
 }

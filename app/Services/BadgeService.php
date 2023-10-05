@@ -6,9 +6,9 @@ use App\Models\Rating;
 
 class BadgeService
 {
-    public function getBadges(string $pdokId): array
+    public function getBadges(string $name): array
     {
-        $ratings = Rating::where("pdok_id", $pdokId)->get();
+        $ratings = Rating::where("name", $name)->get();
         $averageRating = $ratings->avg("score");
         $numberOfRatings = $ratings->count();
         $hasNegativeRatings = (bool) $ratings->filter(function ($rating) {
