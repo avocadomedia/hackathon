@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Rating;
 use App\Services\BadgeService;
@@ -9,7 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
-class ApiLocationRatingController extends BaseController
+class LocationRatingController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
@@ -22,7 +22,7 @@ class ApiLocationRatingController extends BaseController
 
     public function show(string $name)
     {
-        $ratings = Rating::where('name', $name)->get();
+        $ratings = Rating::where('name', 'LIKE', "%$name%")->get();
         return [
             'name' => $name,
             'numberOfRatings' => $ratings->count(),

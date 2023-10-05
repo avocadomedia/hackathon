@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ApiLocationRatingController;
-use App\Http\Controllers\ApiRatingController;
+use App\Http\Controllers\Api\LocationRatingController;
+use App\Http\Controllers\Api\RatingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +14,11 @@ Route::get('/ratings', 'App\Http\Controllers\RatingController@fetchAll')->name('
 Route::get('/ratings', 'App\Http\Controllers\RatingController@fetchAll')->name('ratings.fetch-all');
 
 Route::prefix('v1')->group(function () {
-    Route::controller(ApiRatingController::class)->group(function () {
+    Route::controller(RatingController::class)->group(function () {
         Route::get('/ratings', 'index');
         Route::post('/ratings', 'store');
     });
-    Route::controller(ApiLocationRatingController::class)->group(function () {
+    Route::controller(LocationRatingController::class)->group(function () {
         Route::get('/location-ratings/{pdok_id}', 'show');
     });
 });
