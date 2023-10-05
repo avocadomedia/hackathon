@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
             $table->string('pdok_id');
+            $table->float('pdok_latitude');
+            $table->float('pdok_longitude');
             $table->integer('score');
             $table->text('comment')->nullable();
             $table->timestamps();
