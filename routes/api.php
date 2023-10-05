@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiRatingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -8,3 +9,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/ratings', 'App\Http\Controllers\RatingController@fetchAll')->name('ratings.fetch-all');
+
+Route::get('/ratings', 'App\Http\Controllers\RatingController@fetchAll')->name('ratings.fetch-all');
+
+Route::prefix('v1')->group(function () {
+    Route::controller(ApiRatingController::class)->group(function () {
+        Route::get('/ratings', 'index');
+        Route::post('/ratings', 'store');
+    });
+});
