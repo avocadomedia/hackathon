@@ -14,7 +14,7 @@ class ApiRatingController extends BaseController
 
     public function index(Request $request)
     {
-        return Rating::where("pdok_id", $request->pdokId)->get();
+        return Rating::where('pdok_id', $request->pdokId)->get();
     }
 
     public function store(Rating $rating, Request $request)
@@ -24,6 +24,7 @@ class ApiRatingController extends BaseController
         $rating->pdok_latitude = 0;
         $rating->pdok_longitude = 0;
         $rating->save();
+
         return $rating;
     }
 }

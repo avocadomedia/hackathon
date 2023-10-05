@@ -9,9 +9,5 @@ class Rating extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'pdok_id',
-        'score',
-        'comment',
-    ];
+    protected $guarded = [];
 }

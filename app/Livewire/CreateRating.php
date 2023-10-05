@@ -22,10 +22,29 @@ class CreateRating extends Component implements HasForms
     public static function getRatingFormFields(): array
     {
         return [
-            TextInput::make('pdok_id')
-                ->label('PDOK ID')
+            TextInput::make('name')
+                ->id('name')
+                ->hidden()
+                ->required(),
+            TextInput::make('address')
+                ->id('address')
+                ->label('Street & house number')
+                ->required()
+                ->numeric(),
+            TextInput::make('zip')
+                ->id('postcode')
+                ->label('Postal code')
+                ->required(),
+            TextInput::make('longitude')
+                ->id('longitude')
+                ->hidden()
+                ->required(),
+            TextInput::make('latitude')
+                ->id('latitude')
+                ->hidden()
                 ->required(),
             TextInput::make('score')
+                ->id('score')
                 ->required()
                 ->numeric(),
             Textarea::make('comment')

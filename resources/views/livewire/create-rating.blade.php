@@ -1,13 +1,19 @@
-<div>
-    @if($success)
-        <p>Thanks for your rating.</p>
-    @else
-        <form wire:submit="create">
-            {{ $this->form }}
+<div class="mx-auto container py-16">
+    <h1 class="text-3xl">Rate an address</h1>
 
-            <x-filament::button type="submit" class="mt-4">
-                Submit
-            </x-filament::button>
-        </form>
-    @endif
+    <div class="mt-8">
+        @if($success)
+            <p class="text-green-500">
+                Your rating has been recorded, thanks.
+            </p>
+        @else
+            <form wire:submit="create">
+                {{ $this->form }}
+
+                <x-filament::button type="submit" class="mt-4">
+                    Rate
+                </x-filament::button>
+            </form>
+        @endif
+    </div>
 </div>

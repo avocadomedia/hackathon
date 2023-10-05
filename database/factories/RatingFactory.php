@@ -9,9 +9,11 @@ class RatingFactory extends Factory
     public function definition(): array
     {
         return [
-            'pdok_id' => $this->faker->uuid,
-            'pdok_latitude' => 5.98765,
-            'pdok_longitude' => 5.98765,
+            'name' => $this->faker->name,
+            'address' => $this->faker->streetAddress,
+            'zip' => $this->faker->postcode,
+            'longitude' => $this->faker->longitude,
+            'latitude' => $this->faker->latitude,
             'score' => $this->faker->numberBetween(1, 5),
             'comment' => $this->faker->text,
         ];

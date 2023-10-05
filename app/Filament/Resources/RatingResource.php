@@ -31,10 +31,17 @@ class RatingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('pdok_id')
-                    ->label('PDOK ID'),
-                // Tables\Columns\TextColumn::make('pdok_latitude'),
-                // Tables\Columns\TextColumn::make('pdok_longitude'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('longitude')
+                    ->hidden(),
+                Tables\Columns\TextColumn::make('latitude')
+                    ->hidden(),
+                Tables\Columns\TextColumn::make('zip')
+                    ->label('Postal code'),
+                Tables\Columns\TextColumn::make('house_number')
+                    ->label('House number'),
                 Tables\Columns\TextColumn::make('score')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('comment'),

@@ -10,13 +10,17 @@ class RatingResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'pdok_id' => $this->pdok_id,
+            'id' => $this->id,
+            'name' => $this->name,
+            'address' => $this->address,
+            'zip' => $this->zip,
             'pin' => [
-                $this->pdok_latitude,
-                $this->pdok_longitude,
+                'longitude' => $this->longitude,
+                'latitude' => $this->latitude,
             ],
             'score' => $this->score,
             'comment' => $this->comment,
+            'created_at' => $this->created_at,
         ];
     }
 }
