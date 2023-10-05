@@ -15,7 +15,7 @@ class ApiRatingController extends BaseController
 
     public function index(Request $request)
     {
-        return Rating::where('name', $request->name)->get();
+        return Rating::where('name', 'LIKE', "%$request->name%")->get();
     }
 
     public function store(Rating $rating, StoreRatingRequest $request)
