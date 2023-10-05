@@ -50,7 +50,7 @@
 
                    <fieldset class='flex flex-col gap-2 w-auto'>
                         <label class="font-bold text-xl" for="zip">Postcode</label>
-                        <input class='px-4 py-2 focus:border-2 w-full focus:border-yellow-500  outline-yellow-500 border-slate-600 rounded-lg' id="postcode" id="postcode" name="zip" required />
+                        <input class='px-4 py-2 focus:border-2 w-full focus:border-yellow-500  outline-yellow-500 border-slate-600 rounded-lg' id="postcode" name="zip" required />
                     </fieldset>
                 </div>
 
