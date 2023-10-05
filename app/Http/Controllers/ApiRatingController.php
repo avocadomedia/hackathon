@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRatingRequest;
 use App\Models\Rating;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,12 +18,13 @@ class ApiRatingController extends BaseController
         return Rating::where('pdok_id', $request->pdokId)->get();
     }
 
-    public function store(Rating $rating, Request $request)
+    public function store(Rating $rating, StoreRatingRequest $request)
     {
         $rating->score = $request->score;
         $rating->pdok_id = $request->pdokId;
         $rating->pdok_latitude = 0;
         $rating->pdok_longitude = 0;
+        $rating->comment = $request->comment;
         $rating->save();
 
         return $rating;

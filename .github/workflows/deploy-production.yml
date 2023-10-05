@@ -1,0 +1,47 @@
+name: CI-production
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - name: Install npm dependencies
+      run: npm install && npm run build
+    - name: Set up SSH directory
+      shell: bash
+      run: mkdir -p ~/.ssh
+    - name: Set private key
+      run:
+        echo "${{secrets.PRODUCTION_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+    - name: Set algorithm
+      run: |
+        echo $'PubkeyAcceptedAlgorithms +ssh-rsa\nStrictHostKeyChecking=no' > ~/.ssh/config
+    - name: Set up algorithm
+      run:
+        chmod 600 ~/.ssh/config
+    - name: Set up SSH key
+      run:
+        chmod 600 ~/.ssh/id_rsa
+    - name: Add private key
+      shell: bash
+      run: |
+        eval `ssh-agent -s`
+        ssh-add ~/.ssh/id_rsa
+        ssh-add -l
+    - name: Install Deployer
+      shell: bash
+      run: |
+        curl -LO https://github.com/deployphp/deployer/releases/download/v7.0.0-rc.8/deployer.phar
+        mv deployer.phar /usr/local/bin/dep
+        chmod +x /usr/local/bin/dep
+    - name: Deploy to production
+      run: dep deploy production --tag=${{ github.sha }} -vvv
